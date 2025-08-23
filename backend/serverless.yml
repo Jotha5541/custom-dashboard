@@ -1,0 +1,18 @@
+service: daily-briefing backend
+
+provier:
+  name: aws
+  runtime: python3.9
+  environment:  # Define all environment variables for functions in services
+    WEATHER_API_KEY: ${env:WEATHER_API_KEY}
+
+  
+functions:
+  getWeather:
+    handler: services/get-weather/handler.get_weather     # Points to file and function name
+    description: "Fetches current weather data from OpenWeatherMap API"
+    events:
+      - http:
+          path: /weather  # Public URL path: "../weather"
+          method: get     # HTTP method
+          cors: true   # Enable CORS for this endpoint
