@@ -1,6 +1,6 @@
-service: daily-briefing backend
+service: daily-briefing-backend
 
-provier:
+provider:
   name: aws
   runtime: python3.9
   environment:  # Define all environment variables for functions in services
@@ -15,6 +15,13 @@ provier:
 
   
 functions:
+  updateUserSettings:
+    handler: services/update-settings/handler.update_settings
+    events:
+      - http:
+          path: /settings
+          method: put
+          cors: true
   getWeather:
     handler: services/get-weather/handler.get_weather     # Points to file and function name
     description: "Fetches current weather data from OpenWeatherMap API"

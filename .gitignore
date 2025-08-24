@@ -11,5 +11,6 @@ __pycache__/
 .idea/
 
 .env
+.serverless/
 
 .DS_Store

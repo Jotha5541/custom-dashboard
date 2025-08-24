@@ -1,7 +1,7 @@
 import json
 import os
 from pymongo import MongoClient
-from pymongo.errors import ConnectedFailure
+from pymongo.errors import ConnectionFailure
 
 # ===== Database Connection ===== #
 try:
@@ -17,7 +17,7 @@ try:
     client.admin.command('ismaster')
     print("MongoDB connection successful.")
     
-except (ConnectionFalure, ValueError) as e:
+except (ConnectionFailure, ValueError) as e:
     print(f"Error connecting to MongoDB: {e}")
     client = None
     
