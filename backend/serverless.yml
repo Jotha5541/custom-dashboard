@@ -1,8 +1,16 @@
-service: daily-briefing-backend
+service: personal-dashboard-api
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true  # Uses Docker to build dependencies
 
 provider:
   name: aws
   runtime: python3.9
+  region: us-west-1
   environment:  # Define all environment variables for functions in services
     NEWS_API_KEY: ${env:NEWS_API_KEY} 
     WEATHER_API_KEY: ${env:WEATHER_API_KEY}
@@ -19,7 +27,7 @@ functions:
     handler: services/update-settings/handler.update_settings
     events:
       - http:
-          path: /settings
+          path: settings
           method: put
           cors: true
   getWeather:
@@ -27,6 +35,6 @@ functions:
     description: "Fetches current weather data from OpenWeatherMap API"
     events:
       - http:
-          path: /weather  # Public URL path: "../weather"
+          path: weather  # Public URL path: "../weather"
           method: get     # HTTP method
           cors: true   # Enable CORS for this endpoint

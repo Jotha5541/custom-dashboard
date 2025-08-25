@@ -9,7 +9,7 @@ try:
     if not mongo_uri:
         raise ValueError("MONGO_URI environment variable not set.")
     
-    
+    # Initializing database client
     client = MongoClient(mongo_uri)
     db = client.dashboard
     users_collection = db.users
@@ -53,7 +53,7 @@ def update_settings(event, context):
             }
            
         return {
-            "statusCode": 200,  # Successful response
+            "statusCode": 200,  # Successful request
             "headers": {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Credentials": True,

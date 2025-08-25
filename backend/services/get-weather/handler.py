@@ -15,11 +15,11 @@ def get_weather(event, context):
     
     city = "Corona, CA" # Hardcoded city for now
     
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=imperial"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=imperial"
     
     try:
-        response = requests.get(url)
-        response.raise_for_status()
+        response = requests.get(url)    # GET request
+        response.raise_for_status()     # Raise error and triggers exception
         weather_data = response.json() 
     except requests.exceptions.RequestException as e:
         print(f"Error calling Weather API: {e}")
@@ -29,9 +29,9 @@ def get_weather(event, context):
         }
     
     return {
-        'statusCode': 200,
+        'statusCode': 200,  # Successful request
         "headers": {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "*",     # Indicate safe for frontend to access API
             "Access-Control-Allow-Credentials": True,
         },
         "body": json.dumps(weather_data)
