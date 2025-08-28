@@ -2,7 +2,6 @@ import json
 import os
 import requests
 
-
 def get_weather(event, context):
     
     # Get API Key from environment variable
@@ -17,6 +16,7 @@ def get_weather(event, context):
     
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=imperial"
     
+    print(f"Constructed URL: {url}")
     try:
         response = requests.get(url)    # GET request
         response.raise_for_status()     # Raise error and triggers exception

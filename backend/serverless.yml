@@ -5,36 +5,25 @@ plugins:
 
 custom:
   pythonRequirements:
-    dockerizePip: true  # Uses Docker to build dependencies
+    dockerizePip: true
+    noDeploy:
+      - '*'
 
 provider:
   name: aws
   runtime: python3.9
   region: us-west-1
-  environment:  # Define all environment variables for functions in services
-    NEWS_API_KEY: ${env:NEWS_API_KEY} 
+  environment:
     WEATHER_API_KEY: ${env:WEATHER_API_KEY}
-    MAPS_API_KEY: ${env:MAPS_API_KEY}
+    # Add other environment variables as needed
 
-    GOOGLE_CLIENT_ID: ${env:GOOGLE_CLIENT_ID}
-    GOOGLE_CLIENT_SECRET: ${env:GOOGLE_CLIENT_SECRET}
-    
-    MONGO_URI: ${env:MONGO_URI}
-
-  
 functions:
-  updateUserSettings:
-    handler: services/update-settings/handler.update_settings
-    events:
-      - http:
-          path: settings
-          method: put
-          cors: true
   getWeather:
-    handler: services/get-weather/handler.get_weather     # Points to file and function name
-    description: "Fetches current weather data from OpenWeatherMap API"
+    handler: services/get-weather/handler.get_weather
+    # This explicitly tells the plugin where to find this function's code and requirements
+    module: services/get-weather
     events:
       - http:
-          path: weather  # Public URL path: "../weather"
-          method: get     # HTTP method
-          cors: true   # Enable CORS for this endpoint
+          path: weather
+          method: get
+          cors: true
