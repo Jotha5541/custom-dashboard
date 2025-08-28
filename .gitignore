@@ -13,4 +13,5 @@ __pycache__/
 .env
 .serverless/
 
-.DS_Store
+.DS_Storenode_modules/
+.serverless/
